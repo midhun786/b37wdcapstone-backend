@@ -28,7 +28,7 @@ app.post("/register", async function (req, res) {
         // console.log(hash)
         req.body.password = hash
 
-    let register= await db.collection("userlogin").insertOne(req.body)
+     await db.collection("userlogin").insertOne(req.body)
   
         await connection.close()
         res.json({ message: "user registered success" })
