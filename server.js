@@ -7,7 +7,7 @@ const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv").config()
 var nodemailer= require('nodemailer')
 const mongoClient = mongodb.MongoClient
-const URL = "mongodb://localhost:27017"
+const URL = process.env.LINK
 const DB = "capstone"
 
 
