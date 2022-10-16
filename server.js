@@ -73,7 +73,7 @@ app.post("/Reset", async function (req, res) {
         }
         let token = jwt.sign({ _id: id._id }, process.env.SEC, { expiresIn: '5m' });
 
-        const link = `https://634bdd09dea29b5fb980a1d9--super-toffee-87905c.netlify.app/Reset-Password/${id._id}/${token}`;
+        const link = `http://localhost:3000/Reset-Password/${id._id}/${token}`;
         console.log(link);
         
         //Send a link Via mail;
