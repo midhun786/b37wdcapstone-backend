@@ -16,7 +16,7 @@ app.use(cors({
     origin: "http://localhost:3000"
 }))
 
-app.
+
 app.post("/register", async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
