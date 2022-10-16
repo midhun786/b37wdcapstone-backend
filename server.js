@@ -46,12 +46,13 @@ app.post("/login", async function (req, res) {
         let user = await db.collection("userlogin").findOne({ email: req.body.email })
     if (user) {
         let compare =await bcrypt.compare(req.body.password, user.password)
-        // console.log(compare)
-        if (compare) {
-            res.json({message:"user login successfully"})
-        } else {
+        if(compare){
+            let foo=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"10m"})
+            res.json({foo})
+        }else {
             res.json({messsage:"password is wrong"})
         }
+        // console.log(compare)
     }
     } catch (error) {
         console.log(error)
