@@ -13,10 +13,10 @@ const DB = "capstone"
 
 app.use((express.json()))  //middleware
 app.use(cors({
-    origin: "http://localhost:3000"
+    origin: "https://634bdd09dea29b5fb980a1d9--super-toffee-87905c.netlify.app"
 }))
 
-
+app.
 app.post("/register", async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL)
