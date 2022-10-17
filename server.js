@@ -47,8 +47,8 @@ app.post("/login", async function (req, res) {
     if (user) {
         let compare =await bcrypt.compare(req.body.password, user.password)
         if(compare){
-            let foo=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"10m"})
-            res.json({foo})
+            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"10m"})
+            res.json({token})
         }else {
             res.json({messsage:"password is wrong"})
         }
