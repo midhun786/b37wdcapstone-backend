@@ -86,7 +86,7 @@ app.post("/Reset", async function (req, res) {
         });
 
         var mailOptions = {
-            from:"midhunguvi@gmail.com",
+            from:process.env.FROM,
             to: email,
             subject: 'Password Reset',
             text:"Click this Link Reset Your Password",
