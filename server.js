@@ -17,11 +17,11 @@ app.use(cors({
 }))
 
 let authenticate=(req,res,next)=>{
-if(req.headers.authorisation){
+   if(req.headers.authorisation){
     try{
     let decode =jwt.verify(req.headers.authorisation,PROCESS.env.SEC);
     if(decode){
-    next();
+        next();
     }}catch(error){
         res.status(401).json({message:"unauthorised"})
     }
@@ -46,7 +46,7 @@ app.get("/home",authenticate, async function(req,res){
 
 app.get("/viewproduct/:id",authenticate,async function(req,res){
      try {
-        const connection= await mongoClient.connect(URL)
+     const connection= await mongoClient.connect(URL)
 
      const db=connection.db(DB)
 
