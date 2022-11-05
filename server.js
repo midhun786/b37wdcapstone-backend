@@ -13,8 +13,65 @@ const DB = "capstone"
 
 app.use((express.json()))  //middleware
 app.use(cors({
-    origin: "https://super-toffee-87905c.netlify.app"
+    origin: "http://localhost:3000"
 }))
+
+let authenticate=(req,res,next)=>{
+if(req.headers.authorisation){
+    try{
+    let decode =jwt.verify(req.headers.authorisation,PROCESS.env.SEC);
+    if(decode){
+    next();
+    }}catch(error){
+        res.status(401).json({message:"unauthorised"})
+    }
+   }else{
+    res.status(401).json({message:"unauthorised"})
+   }
+}
+
+app.get("/home",authenticate, async function(req,res){
+    try {
+        const connection= await mongoClient.connect(URL)
+        const db = connection.db(DB)
+        const resUser=await db.collection("products").find().toArray()
+        console.log(resUser)
+        await connection.close()
+         res.status(200).json(resUser)
+        } catch (error) {
+         console.log(error)
+        res.status(500).json({message:"something went wrong"})
+       }
+})
+
+app.get("/viewproduct/:id",authenticate,async function(req,res){
+     try {
+        const connection= await mongoClient.connect(URL)
+
+     const db=connection.db(DB)
+
+     const view=await db.collection("products").findOne({_id:mongodb.ObjectId(req.params.id)});
+
+     await connection.close()
+     res.json(view)
+     } catch (error) {
+        console.log(error)
+        res.status(500).json({message:"something went wrong"})
+     }
+})
+
+// app.post("/user",async function(req,res){
+//    try {
+//     const connection= await mongoClient.connect(URL)
+//     const db = connection.db(DB)
+//     const create= await db.collection("products").insertOne(req.body)
+//     await connection.close()
+//      res.status(200).json({message:"data inserted"})
+//     } catch (error) {
+//      console.log(error)
+//     res.status(500).json({message:"something went wrong"})
+//    }
+// })
 
 
 app.post("/register", async function (req, res) {
