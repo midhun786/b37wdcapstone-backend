@@ -16,19 +16,6 @@ app.use(cors({
     origin: "http://localhost:3000"
 }))
 
-// let authenticate=(req,res,next)=>{
-//    if(req.headers.authorisation){
-//     try{
-//     let decode =jwt.verify(req.headers.authorisation,PROCESS.env.SEC);
-//     if(decode){
-//         next();
-//     }}catch(error){
-//         res.status(401).json({message:"unauthorised"})
-//     }
-//    }else{
-//     res.status(401).json({message:"unauthorised"})
-//    }
-// }
 let authentication = (req,res,next)=>{
     console.log(req.headers);
     if(req.headers.authentication){
