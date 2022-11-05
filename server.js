@@ -16,21 +16,21 @@ app.use(cors({
     origin: "http://localhost:3000"
 }))
 
-let authentication = (req,res,next)=>{
-    console.log(req.headers);
-    if(req.headers.authentication){
-        let decode = jwt.verify(req.headers.authentication,process.env.SEC);
-        if(decode){
-            next()
-        }else{
-            res.status(401).json({message:"Unauthorized"});
-        }
-    }else{
-        res.status(401).json({message:"Unauthorized"});
-    }
-}
+// let authentication = (req,res,next)=>{
+//     console.log(req.headers);
+//     if(req.headers.authentication){
+//         let decode = jwt.verify(req.headers.authentication,process.env.SEC);
+//         if(decode){
+//             next()
+//         }else{
+//             res.status(401).json({message:"Unauthorized"});
+//         }
+//     }else{
+//         res.status(401).json({message:"Unauthorized"});
+//     }
+// }
 
-app.get("/home",authentication, async function(req,res){
+app.get("/home", async function(req,res){
     try {
         const connection= await mongoClient.connect(URL)
         const db = connection.db(DB)
@@ -44,7 +44,7 @@ app.get("/home",authentication, async function(req,res){
        }
 })
 
-app.get("/viewproduct/:id",authentication,async function(req,res){
+app.get("/viewproduct/:id",async function(req,res){
      try {
      const connection= await mongoClient.connect(URL)
 
