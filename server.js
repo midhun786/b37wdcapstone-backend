@@ -16,10 +16,10 @@ app.use(cors({
     origin: "http://localhost:3000"
 }))
 
-let authentication = (req,res,next)=>{
+let authorisation = (req,res,next)=>{
     console.log(req.headers);
-    if(req.headers.authentication){
-        let decode = jwt.verify(req.headers.authentication,process.env.SEC);
+    if(req.headers.authorisation){
+        let decode = jwt.verify(req.headers.authorisation,process.env.SEC);
         if(decode){
             next()
         }else{
@@ -30,7 +30,7 @@ let authentication = (req,res,next)=>{
     }
 }
 
-app.get("/home",authentication, async function(req,res){
+app.get("/home",authorisation, async function(req,res){
     try {
         const connection= await mongoClient.connect(URL)
         const db = connection.db(DB)
@@ -44,7 +44,7 @@ app.get("/home",authentication, async function(req,res){
        }
 })
 
-app.get("/viewproduct/:id",authentication,async function(req,res){
+app.get("/viewproduct/:id",authorisation,async function(req,res){
      try {
      const connection= await mongoClient.connect(URL)
 
