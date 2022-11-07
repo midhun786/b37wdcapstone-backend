@@ -96,7 +96,7 @@ app.post("/register", async function (req, res) {
     }
 })
 
-app.post("/login", async function (req, res) {
+app.post("/", async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL);
         let db = connection.db(DB);
