@@ -13,7 +13,7 @@ const DB = "capstone"
 
 app.use((express.json()))  //middleware
 app.use(cors({
-    origin: "https://super-toffee-87905c.netlify.app"
+    origin: "http://localhost:3000"
 }))
 
 let authorisation = (req,res,next)=>{
