@@ -96,7 +96,7 @@ app.post("/register", async function (req, res) {
     }
 })
 
-app.post("/", async function (req, res) {
+app.post("/login", async function (req, res) {
     try {
         let connection = await mongoClient.connect(URL);
         let db = connection.db(DB);
@@ -105,7 +105,7 @@ app.post("/", async function (req, res) {
     if (user) {
         let compare =await bcrypt.compare(req.body.password, user.password)
         if(compare){
-            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"60*60"})
+            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"60m"})
             res.json({token,hook})
         }else {
             res.json({messsage:"password is wrong"})
