@@ -197,4 +197,4 @@ app.post("/Reset-Password/:id/:token", async function (req, res) {
 
 })
 
-app.listen(process.env.PORT||4000)
+app.listen(4000)
