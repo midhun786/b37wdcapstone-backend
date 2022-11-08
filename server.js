@@ -44,7 +44,7 @@ app.get("/home", async function(req,res){
        }
 })
 
-app.get("/viewproduct/:id",authorisation,async function(req,res){
+app.get("/viewproduct/:id",async function(req,res){
      try {
      const connection= await mongoClient.connect(URL)
 
