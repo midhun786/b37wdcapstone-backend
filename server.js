@@ -13,7 +13,7 @@ const DB = "capstone"
 
 app.use((express.json()))  //middleware
 app.use(cors({
-    origin: "https://super-toffee-87905c.netlify.app"
+    origin: "http://localhost:3000"
 }))
 
 let authorisation = (req,res,next)=>{
@@ -105,7 +105,7 @@ app.post("/login", async function (req, res) {
     if (user) {
         let compare =await bcrypt.compare(req.body.password, user.password)
         if(compare){
-            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"60m"})
+            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"50m"})
             res.json({token,hook})
         }else {
             res.json({messsage:"password is wrong"})
