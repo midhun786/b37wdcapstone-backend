@@ -13,7 +13,7 @@ const DB = "capstone"
 
 app.use((express.json()))  //middleware
 app.use(cors({
-    origin: "http://localhost:3000"
+    origin: "https://super-toffee-87905c.netlify.app"
 }))
 
 let authorisation = (req,res,next)=>{
@@ -101,11 +101,12 @@ app.post("/", async function (req, res) {
         let connection = await mongoClient.connect(URL);
         let db = connection.db(DB);
         let user = await db.collection("userlogin").findOne({ email: req.body.email })
+        let hook=user.username
     if (user) {
         let compare =await bcrypt.compare(req.body.password, user.password)
         if(compare){
-            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"10m"})
-            res.json({token})
+            let token=jwt.sign({_id:user._id},process.env.SEC,{expiresIn:"60*60"})
+            res.json({token,hook})
         }else {
             res.json({messsage:"password is wrong"})
         }
